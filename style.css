@@ -1,0 +1,118 @@
+body{
+background:#75D1FF;
+background-repeat: repeat;
+font-family: Calibri, Veranda, Arial;
+font-size: 14px;
+margin: 0px;
+}
+
+.main_table{
+	text-align: left; 
+	width: 1000px;
+	background: url(images/bg2.jpg);
+  -webkit-box-shadow:0 0 5px 10px gray;
+  -khtml-box-shadow:0 0 5px 10px gray;
+  -moz-box-shadow:0 0 5px 10px gray;
+  box-shadow:0 0 5px 10px gray;
+}
+
+logo{
+	
+}
+
+hlavicka{
+
+}
+
+
+#nova_staznost{
+font-size: 16px;
+	font-weight: bold;
+  text-align: left;
+  padding-left:20px;
+  padding-top:10px;
+  padding-bottom:10px;
+  width: 800px;
+background-image: linear-gradient(top, rgb(230,230,230) 20%, rgb(166,163,166) 100%);
+background-image: -o-linear-gradient(top, rgb(230,230,230) 20%, rgb(166,163,166) 100%);
+background-image: -moz-linear-gradient(top, rgb(230,230,230) 20%, rgb(166,163,166) 100%);
+background-image: -webkit-linear-gradient(top, rgb(230,230,230) 20%, rgb(166,163,166) 100%);
+background-image: -ms-linear-gradient(top, rgb(230,230,230) 20%, rgb(166,163,166) 100%);
+
+background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0.2, rgb(230,230,230)),
+	color-stop(1, rgb(166,163,166))
+);
+
+  border-radius: 15px;
+   -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+}
+
+.vypis{
+  border-spacing: 5px 10px;
+  text-align:left;
+}
+
+
+
+.hladat{
+  text-align: right;
+}
+
+#pole_staznosti{
+	text-align:left;
+	width:800px;
+	margin-left:auto;
+	margin-right:auto;
+	background:red;
+}
+
+#hlavicka_staznosti{
+text-align:left;
+    -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;	
+	background:#75D1FF;
+	padding: 15px;
+	width: 800px;
+	-webkit-border-top-left-radius: 8px;-webkit-border-top-right-radius: 8px;-webkit-border-bottom-left-radius: 8px;-webkit-border-bottom-right-radius: 8px;-khtml-border-radius-topleft: 8px;-khtml-border-radius-topright: 8px;
+	-khtml-border-radius-bottomleft: 8px;-khtml-border-radius-bottomright: 8px;-moz-border-radius-topleft: 8px;	-moz-border-radius-topright: 8px;-moz-border-radius-bottomleft: 8px;-moz-border-radius-bottomright: 8px;
+	border-top-left-radius: 8px;border-top-right-radius: 8px;border-bottom-right-radius: 8px;border-bottom-left-radius: 8px;	
+	}
+	
+#staznost_a{ 
+	
+	}
+	
+.pata{
+	position: center relative;
+	vertical-align: bottom;
+}
+
+input{
+	border:white;
+	border-radius:3px;
+	
+}
+
+textarea{
+	border: white;
+	border-radius: 3px;	
+}
+
+#button{
+	font-family: calibri, Arial;
+	font-size: medium;
+	font-weight: bold;
+}
+
+#popis{
+font-size: large;
+font-weight: bold;
+text-align: center;
+  }
