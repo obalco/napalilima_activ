@@ -10,6 +10,8 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.autocomplete.js"></script>
 <script>
+
+
  $(document).ready(function(){
   $("#hladat").autocomplete("js/autocomplete.php", {
          selectFirst: false,
@@ -17,8 +19,7 @@
 		 minChars: 2,
 		 delay: 100
 		 });
-		 
-		 
+	
 		 
 $('dd').hide();
 		
@@ -29,6 +30,7 @@ $('dd').hide();
 	
 					 	rodic.find('dd').slideUp();
 						text.not(':visible').slideDown();
+					
 					return false;
 					})	
  });
@@ -126,7 +128,8 @@ $('dd').hide();
       </td>
     </tr>
         <?php
-               
+         
+                  
           $sql="SELECT * FROM claims order BY id DESC LIMIT 10 ";
           $res=mysql_query($sql);
           $pocet=mysql_num_rows($res);
@@ -134,31 +137,55 @@ $('dd').hide();
           $i=0;
           echo '<div id="pole_staznosti">';
       echo '<dl>';
+	 
           while($zaznam = mysql_fetch_assoc($res))
             {
               $user  	= $zaznam['id_u'];	
               $who   	= $zaznam['who'];
               $date  	= $zaznam['date'];
               $claim 	= $zaznam['claim'];
+			  $id       = $zaznam['id'];
               $sys_date = date("d.m.Y \o H:i",strtotime($zaznam['sys_date']));
               $i++;
+
+
+
 
               echo '<tr><td colspan="2" align="center"><div id="hlavicka_staznosti">'; 
 			
               echo '<b>Nick: </b>'.$user.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo' <a href=""> LIKE </a>&nbsp; <a href=""> DISLIKE </a>';
               echo '<p id="staznost_a">'.$claim.'</p>';
 			  
-			  
-				echo"<dt id='odkaz'><a href='#'>Pridaj koment·r</a></dt>";
-  				echo'<dd id="text_odkazu"><form method="post">';
+				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
+  				echo'<dd id="text_odkazu">';
 				echo '<br />';
+				 echo'<form method="post" >';
 					echo'comment'.'<input type="text" name="comment" />';
-					echo'<input type="submit" value="Pridaù koment·r" name="send_comment">';
+					echo'<input name="send_comment" type="submit" value="Pridaù koment·r" />';
+					echo'<input name="hid" type="hidden" value="'.$id.'" />';
 					
-				echo"</form></dd>";
+				echo"</form>";	
+				echo"</dd>";
+				
+				
+			  $s = "SELECT * FROM comments WHERE id_c=".$id;
+			  $v = mysql_query($s);
+			  
+			  while($z=mysql_fetch_assoc($v)){
+			  
+				echo"<br />";
+				echo"<hr>";
+				echo " id comentaru ".$z['id_c']." comentar ".$z['comment'];
+			  }
+			  
               echo'</div>';
+			  echo"<br />";
+			  
+			  
            }
+	
 		   echo"</dl>";
+		   
          echo'</div>';
          
          $sql="SELECT * FROM claims ";
@@ -189,7 +216,22 @@ $('dd').hide();
 				
 			
 			}
-		*/		
+		*/	
+		
+		if(isset($_POST['send_comment'])){
+					
+					$idecko=(isset($_POST['hid'])) ? $_POST['hid'] : "";
+
+						//$comment = mysql_real_escape_string(trim($_POST['comment']));
+						 
+
+						$ip = getIpAddress();  
+						
+							$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ( 1, '$idecko', 'comment', NOW(),'$ip' )";
+							$vys = mysql_query($sql);
+												
+					}
+		
 		
 		?>
       <p align="center" class="pata">Code and Design by <a href="http://www.am.6f.sk" target="_blank"><img src="images/am_logo.png"  height="15" alt="AM PAGE Andrej Majik Logo"></a>
