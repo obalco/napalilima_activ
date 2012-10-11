@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vygenerováno: Neděle 30. září 2012, 18:12
+-- Vygenerováno: Čtvrtek 11. října 2012, 18:44
 -- Verze MySQL: 5.1.53
 -- Verze PHP: 5.3.4
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `claims` (
   `ip` varchar(16) COLLATE utf8_czech_ci NOT NULL,
   `sys_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=24 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=26 ;
 
 --
 -- Vypisuji data pro tabulku `claims`
@@ -42,27 +42,9 @@ CREATE TABLE IF NOT EXISTS `claims` (
 
 INSERT INTO `claims` (`id`, `id_u`, `who`, `claim`, `date`, `ip`, `sys_date`) VALUES
 (1, 1, 'gfhgfh', 'gfhfghfghgf', 'hfghfghfghgfhf', '127.0.0.1', '2012-09-29 00:00:00'),
-(2, 1, 'gfhgfh', 'gfhfghfghgf', 'hfghfghfghgfhf', '127.0.0.1', '2012-09-29 00:00:00'),
-(3, 1, 'dfgdfgdf', 'gdfgdfg', 'dfgdfgdfgdf', '127.0.0.1', '2012-09-29 00:00:00'),
-(4, 1, 'dfgdfgdf', 'gdfgdfg', 'dfgdfgdfgdf', '127.0.0.1', '2012-09-29 00:00:00'),
-(5, 0, 'dasdasasd', 'asdasdasasdasdasd', 'dasd', '127.0.0.1', '2012-09-29 00:00:00'),
-(6, 0, 'dasdasasd', 'asdasdasasdasdasd', 'dasd', '127.0.0.1', '2012-09-29 00:00:00'),
 (7, 0, 'asdasd', 'asdasdas', 'asdasdas', '127.0.0.1', '2012-09-29 00:00:00'),
-(8, 0, 'gdfgfdg', 'fggdfdfgdfgdf', 'dfgdfg', '127.0.0.1', '2012-09-29 23:37:59'),
-(9, 0, 'asdasdasd', '***** pièa jebe andy  wow ', 'asdasdas', '', '2012-09-30 11:04:13'),
-(10, 0, 'dasdasd', '', 'sdasdas', '', '2012-09-30 11:04:30'),
-(11, 0, 'asdasdasdasdas', '', 'dasdasd', '', '2012-09-30 11:04:40'),
 (12, 0, 'andy', 'pièa *** jebe ', 'sdasdasdasdas', '', '2012-09-30 11:05:37'),
-(13, 0, 'adasdasdasda', '**** ', 'dasdasda', '', '2012-09-30 11:07:23'),
-(14, 0, 'sdasdasdadas', 'andys **** ***** neviem c mam ', 'asdasdadas', '', '2012-09-30 11:07:54'),
 (15, 0, 'sdasdada', '**** ***** neviem c mam napisa andys **** ***** neviem c mam ', 'dasdasdasd', '', '2012-09-30 11:08:17'),
-(16, 0, 'asdasdad', '**** ***** neviem c mam napisa andys **** ***** neviem c mam ', 'dasdas', '', '2012-09-30 11:08:42'),
-(17, 0, 'andysadad', '**** ***** neviem c mam napisa andys **** ***** neviem c mam ', 'dasda', '', '2012-09-30 11:09:29'),
-(18, 0, 'dasdasda', '**** ***** neviem c mam napisa andys **** ***** neviem c mam napisapièa ***** neviem c mam napisa andys **** ***** neviem c mam ', 'asdasdas', '', '2012-09-30 11:09:41'),
-(19, 0, 'sadasd', '**** ***** neviem c mam napisa andys **** ***** neviem c mam napisapièa ***** neviem c mam napisa andys **** ***** neviem c mam ', 'asdadad', '', '2012-09-30 11:11:01'),
-(20, 0, 'asdasdas', '**** ', 'asdas', '', '2012-09-30 11:11:14'),
-(21, 0, 'asdasda', '', 'sadasdasd', '', '2012-09-30 11:34:09'),
-(22, 0, 'sdasdasda', '', 'asdasdas', '', '2012-09-30 11:34:20'),
 (23, 0, 'asdasdasd', '**** ***** je andy ', 'dasdasdas', '', '2012-09-30 11:34:53');
 
 -- --------------------------------------------------------
@@ -76,15 +58,25 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `id_u` int(11) NOT NULL,
   `id_c` int(11) NOT NULL,
   `comment` text COLLATE utf8_czech_ci NOT NULL,
-  `sys_date` varchar(11) COLLATE utf8_czech_ci NOT NULL,
+  `sys_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `ip` varchar(16) COLLATE utf8_czech_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=198 ;
 
 --
 -- Vypisuji data pro tabulku `comments`
 --
 
+INSERT INTO `comments` (`id`, `id_u`, `id_c`, `comment`, `sys_date`, `ip`) VALUES
+(197, 1, 1, 'comment', '2012-10-11 20:31:02', '127.0.0.1'),
+(196, 1, 1, 'comment', '2012-10-11 20:31:01', '127.0.0.1'),
+(195, 1, 1, 'comment', '2012-10-11 20:31:00', '127.0.0.1'),
+(194, 1, 1, 'comment', '2012-10-11 20:30:58', '127.0.0.1'),
+(193, 1, 1, 'comment', '2012-10-11 20:30:51', '127.0.0.1'),
+(192, 1, 7, 'comment', '2012-10-11 20:19:43', '127.0.0.1'),
+(191, 1, 12, 'comment', '2012-10-11 20:19:29', '127.0.0.1'),
+(190, 1, 12, 'comentar pre 12', '2012-10-11 20:33:28', '127.0.0.1'),
+(189, 1, 12, 'comment', '2012-10-11 19:42:28', '127.0.0.1');
 
 -- --------------------------------------------------------
 
