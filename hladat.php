@@ -27,9 +27,9 @@
 <?php
 	if(isset($_POST['search'])){
 		include('db.php');
-		$staznost =mysql_real_escape_string($_POST['hladat']);
+		$claim =mysql_real_escape_string($_POST['hladat']);
 
-		$sql="SELECT * FROM staznosti WHERE staznost='$staznost'";
+		$sql="SELECT * FROM claims WHERE claim='$claim'";
 		$res=mysql_query($sql);
 
 		$pocet=mysql_num_rows($res);
