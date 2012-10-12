@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vygenerováno: Čtvrtek 11. října 2012, 18:44
+-- Vygenerováno: Pátek 12. října 2012, 21:49
 -- Verze MySQL: 5.1.53
 -- Verze PHP: 5.3.4
 
@@ -31,6 +31,8 @@ CREATE TABLE IF NOT EXISTS `claims` (
   `who` varchar(50) COLLATE utf8_czech_ci NOT NULL,
   `claim` text COLLATE utf8_czech_ci NOT NULL,
   `date` varchar(16) COLLATE utf8_czech_ci NOT NULL,
+  `_like` int(11) NOT NULL,
+  `dislike` int(11) NOT NULL,
   `ip` varchar(16) COLLATE utf8_czech_ci NOT NULL,
   `sys_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -40,12 +42,12 @@ CREATE TABLE IF NOT EXISTS `claims` (
 -- Vypisuji data pro tabulku `claims`
 --
 
-INSERT INTO `claims` (`id`, `id_u`, `who`, `claim`, `date`, `ip`, `sys_date`) VALUES
-(1, 1, 'gfhgfh', 'gfhfghfghgf', 'hfghfghfghgfhf', '127.0.0.1', '2012-09-29 00:00:00'),
-(7, 0, 'asdasd', 'asdasdas', 'asdasdas', '127.0.0.1', '2012-09-29 00:00:00'),
-(12, 0, 'andy', 'pièa *** jebe ', 'sdasdasdasdas', '', '2012-09-30 11:05:37'),
-(15, 0, 'sdasdada', '**** ***** neviem c mam napisa andys **** ***** neviem c mam ', 'dasdasdasd', '', '2012-09-30 11:08:17'),
-(23, 0, 'asdasdasd', '**** ***** je andy ', 'dasdasdas', '', '2012-09-30 11:34:53');
+INSERT INTO `claims` (`id`, `id_u`, `who`, `claim`, `date`, `_like`, `dislike`, `ip`, `sys_date`) VALUES
+(1, 1, 'gfhgfh', 'gfhfghfghgf', 'hfghfghfghgfhf', 0, 0, '127.0.0.1', '2012-09-29 00:00:00'),
+(7, 0, 'asdasd', 'asdasdas', 'asdasdas', 0, 0, '127.0.0.1', '2012-09-29 00:00:00'),
+(12, 0, 'andy', 'pièa *** jebe ', 'sdasdasdasdas', 0, 0, '', '2012-09-30 11:05:37'),
+(15, 0, 'sdasdada', '**** ***** neviem c mam napisa andys **** ***** neviem c mam ', 'dasdasdasd', 5, 1, '', '2012-10-12 21:49:00'),
+(23, 0, 'asdasdasd', '**** ***** je andy ', 'dasdasdas', 1, 3, '', '2012-10-12 21:48:54');
 
 -- --------------------------------------------------------
 

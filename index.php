@@ -153,7 +153,7 @@ $('dd').hide();
 
               echo '<tr><td colspan="2" align="center"><div id="hlavicka_staznosti">'; 
 			
-              echo '<b>Nick: </b>'.$user.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo'nbsp; <a href="?req=like&id='.$id.'"> LIKE </a>&nbsp; <a href=""> DISLIKE </a>';
+              echo '<b>Nick: </b>'.$user.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo"nbsp; <a href='?req=like&id=".$id."'> LIKE </a>&nbsp; <a href='?req=dislike&id=".$id."'> DISLIKE </a>";
               echo '<p id="staznost_a">'.$claim.'</p>';
 			  
 				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
@@ -173,7 +173,7 @@ $('dd').hide();
 			  
 			  while($z=mysql_fetch_assoc($v)){
 				echo'<div id="comment_box">';
-				echo " id comentaru ".$z['id_c']." comentar ".$z['comment'];
+				echo " id comentaru ".$z['id_c']." komentar je ".$z['comment'];
 				echo"</div>";
 			  }
 			  
@@ -235,12 +235,17 @@ $('dd').hide();
 			case 'like':
 				if(isset($_GET['id'])){
 					$id_u=(int) $_GET['id'];
-					$sql_u = "UPDATE claims SET like=1 WHERE id=".$id_u.""; 
+					$sql_u = "UPDATE claims SET _like=_like+1 WHERE id=".$id_u.""; 
 					$vys_u = mysql_query($sql_u);
 				}
 			break;
 			
-			case '':
+			case 'dislike':
+				if(isset($_GET['id'])){
+					$id_u=(int) $_GET['id'];
+					$sql_u = "UPDATE claims SET dislike=dislike+1 WHERE id=".$id_u.""; 
+					$vys_u = mysql_query($sql_u);
+				}
 			break;
 		}
 		
