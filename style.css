@@ -1,3 +1,5 @@
+
+
 body{
 background:#75D1FF;
 background-repeat: repeat;
@@ -109,6 +111,11 @@ textarea{
 	font-family: calibri, Arial;
 	font-size: medium;
 	font-weight: bold;
+}
+#comment_box{
+	padding-left:25px;
+	
+	background:white;
 }
 
 #popis{
