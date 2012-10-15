@@ -87,11 +87,11 @@ $('dd').hide();
                 $claim = mysql_real_escape_string(trim($_POST['claim']));
                 $date  = mysql_real_escape_string(trim($_POST['date']));
                 $nick  = mysql_real_escape_string(trim($_POST['nick']));
-                //$email 		   = mysql_real_escape_string(trim($_POST['email']));
-                //$ip			   = getIpAddress();
-				//$sys_date = mysql_real_escape_string(trim($_POST['sys_date']));
+                $email 		   = mysql_real_escape_string(trim($_POST['email']));
+                $ip			   = getIpAddress();
+                $sys_date = mysql_real_escape_string(trim($_POST['sys_date']));
           
-               // $id_u =     1;
+                $id_u =     1;
 				// slovo ln spojene s premennou bude oznacovat dlzku retazca premennej
 				// slovo ok budeme spajat s premenou a bude typu boolean
 				$ln_who   = strlen($who);
