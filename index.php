@@ -110,8 +110,7 @@ $('dd').hide();
 										VALUES ('$who','$claim', '$date', '$ip', NOW())";
                     $res  = mysql_query($sql);
                     $id_s = mysql_insert_id(); // funkcia mysql_insert_id dostava poslednu autoinkrementovanu hodnotu primarneho kluca u nas to je id 
-                   
-				   // $vys  = mysql_query($sql); kua naco tu je toto? vykona to druhy krat insert :D
+            
                     header("Location:index.php");
                   }
                 else
@@ -224,14 +223,12 @@ $('dd').hide();
 			$ip = getIpAddress();  			
 			$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ( 1, '$idecko', '$comment', NOW(),'$ip' )";
 			$vys = mysql_query($sql);
-			header("Location: ");
-												
+			header("Location: ");										
 		}
 		
 		
 		
 		switch($_GET['req']){
-		
 			case 'like':
 				if(isset($_GET['id'])){
 					$id_u=(int) $_GET['id'];
