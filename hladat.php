@@ -17,46 +17,95 @@
 		 minChars: 2,
 		 delay: 100
 		 });
+	
+	$('dd').hide();
+		
+		$('dt').click(function(){
+			
+				var	rodic = $(this).parent(),
+					 text = $(this).next();
+	
+					 	rodic.find('dd').slideUp();
+						text.not(':visible').slideDown();
+					
+					return false;
+					})	
  });
 </script>
 </head>
 <body>
 <form method="post" action="">
-				Hladaù <input name="hladat" type="text"/><input name="search" type="submit" value="Hladaù" />
+<br /> Pri vyhæad·vanÌ nem·te moûnosù komentovaù prÌspevky.
+<br /><br />
+				Hladaù <input name="hladat" type="text"/><input class="src" name="search" type="submit" value="Hladaù" />
 </form>
 <?php
 	if(isset($_POST['search'])){
 		include('db.php');
 		$claim =mysql_real_escape_string($_POST['hladat']);
 
-		$sql="SELECT * FROM claims WHERE claim='$claim'";
+		$sql="SELECT * FROM claims WHERE who='$claim'";
 		$res=mysql_query($sql);
-
 		$pocet=mysql_num_rows($res);
 
 		
-		$i=0;
+		
 		echo '<div id="pole_staznosti">';
 		
-		while($zaznam = mysql_fetch_assoc($res))
-		{
-			$nick 		   = $zaznam['nick'];	
-			$staznost_na   = $zaznam['staznost_na'];
-			$staznost_kedy = $zaznam['staznost_kedy'];
-			$staznost 	   = $zaznam['staznost'];
-			$email		   = $zaznam['email'];
-			$datum         = date("d.m.Y \o H:i",strtotime($zaznam['datum_staznost']));
-			$i++;
+		echo '<dl>';
+	 
+          while($zaznam = mysql_fetch_assoc($res))
+            {
+              $user  	= $zaznam['id_u'];	
+              $who   	= $zaznam['who'];
+              $date  	= $zaznam['date'];
+              $claim 	= $zaznam['claim'];
+			  $id       = $zaznam['id'];
+              $sys_date = date("d.m.Y \o H:i",strtotime($zaznam['sys_date']));
+           
 
-			echo '<div id="hlavicka_staznosti">';
-				echo '<b>Nick: </b>'.$nick.' | <b>Sùaûnosù na: </b>'.$staznost_na.' | <b>Sùaûnosù na: </b>'.$staznost_kedy.' | <b>E-mail: </b>'.$email.' | <b>D·tum odoslania: </b>'.$datum;
-					echo '<div id="staznost_a">'.$staznost.'</div>';
-			echo'</div>';
-		
-		}
+				echo '<div id="hlavicka_staznosti">'; 
+			
+				echo '<b>Nick: </b>'.$user.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a>&nbsp; <a href='?req=dislike&id=".$id."'> DISLIKE </a>";
+				echo '<p id="staznost_a">'.$claim.'</p>';
+			  
+				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
+				
+  				echo'<dd id="text_odkazu">';
+				echo '<br />';
+				
+				echo'<form method="post" >';
+				echo'Koment·r:';
+				echo '<br />';
+
+					echo'<textarea name="comment" rows="5" cols="87" ></textarea>';
+					echo'<input name="send_comment" type="submit" value="Pridaù koment·r" />';
+					echo'<input name="hid" type="hidden" value="'.$id.'" />';
+				echo"</form>";
+				
+				echo"</dd>";
+				echo '<br />';
+
+				
+				  $s = "SELECT * FROM comments WHERE id_c=".$id;
+				  $v = mysql_query($s);
+				  
+				  while($z=mysql_fetch_assoc($v)){
+					echo'<div id="comment_box">';
+					echo " id comentaru ".$z['id_c']." komentar je ".$z['comment'];
+					echo"</div>";
+				  }
+				echo'</div>';
+				echo"<br />";
+			
+			}
+	
+		echo"</dl>";
 	echo'</div>';
+	
 		mysql_close();
 	}
+	
 ?>
 </table>
 </body>
