@@ -35,186 +35,38 @@ $('dd').hide();
 					})	
  });
  
- 
-				
-			
-			
-
 			
 </script>
 </head>
-<body>
-<!-- Tabulky ma uz zas bavia -->
-<table class="main_table"  align="center">
-  <tbody>
-    <tr>
-      <td class="hlavicka">
-        <a href="index.php"><img class="logo" src="images/napalilima_logo.png" alt="Napalili ma Logo" height="70" /></a>
-      </td>
-      <td align="right">
-        <form action="hladat.php" method="post">
-          <input name="hladat" type="text" id="hladat" size="20"  />&nbsp;<input name="search" type="submit" value="Hladaù" />
-        </form>
-      </td>
-    <tr/>
-    <tr>
-      <td colspan="2">
+<body> 
+	<div id="container">
+		 <div id="header">
+
+			<a href="index.php"><img class="logo" src="images/napalilima_logo.png" alt="Napalili ma Logo" height="70" /></a>
+			<form action="hladat.php" method="post">
+				<div class="search">
+					<input name="hladat" type="text" id="hladat"   />&nbsp;<input class="src" name="search" type="submit" value="Hladaù" />
+				</div>
+			</form>
+		 </div>
+     
         <p id="popis">Vyuûite moûnosù ventilovaù svoj hnev a pomÙûte in˝m vyhn˙ù sa problÈmom</p>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <div id="nova_staznost">
+      
+                 
+		<div id="content">
+
           <?php
             session_start();
             include('db.php');
             include('errors.php');
             include('functions.php');
-      
-            echo '<form  method="post">
-                    Co/Kto:<br /><textarea cols="100" rows="1" name="who"></textarea><br/>
-                    Ako/Cim:<br /><textarea name="claim" rows="5" cols="100"></textarea><br/><br/>
-                    Nick: <input type="text" name="nick" cols="35"> 
-                    Kedy: <input type="text" name="date" cols="35">
-                    E-mail: <input type="text" name="email" cols="35"><br/>
-                    <p align="center"><input type="submit" id="button" value="Odoslaù sùaûnosù" name="send"></p>
-                  </form></div>';
-                
-            if(isset($_POST['send'] ))
-              {
-                $message="";
-                $who   = mysql_real_escape_string(trim($_POST['who']));
-                $claim = mysql_real_escape_string(trim($_POST['claim']));
-                $date  = mysql_real_escape_string(trim($_POST['date']));
-                $nick  = mysql_real_escape_string(trim($_POST['nick']));
-                $email 		   = mysql_real_escape_string(trim($_POST['email']));
-                $ip			   = getIpAddress();
-                $sys_date = mysql_real_escape_string(trim($_POST['sys_date']));
-          
-                $id_u =     1;
-				// slovo ln spojene s premennou bude oznacovat dlzku retazca premennej
-				// slovo ok budeme spajat s premenou a bude typu boolean
-				$ln_who   = strlen($who);
-				$ln_claim = strlen($claim);
-
-				if($ln_who >3 && $ln_who < 50) {$ok_who = true; } 		   else {$ok_who = false;$message.=$error[6];}
-				if($ln_claim >5 && $ln_claim < 200) {$ok_claim = true; }   else {$ok_claim = false; $message.=$error[7];}
 			
-				// blo by fajn keby nick a mail sa dava do session :) teda pri logovanÌ :)
-				
-            
-            if ($ok_who === true && $ok_claim === true)
-                  {
-					$claim = cenzura($claim);
-                    $sql  = "INSERT INTO claims ( who, claim, date, ip, sys_date) 
-										VALUES ('$who','$claim', '$date', '$ip', NOW())";
-                    $res  = mysql_query($sql);
-                    $id_s = mysql_insert_id(); // funkcia mysql_insert_id dostava poslednu autoinkrementovanu hodnotu primarneho kluca u nas to je id 
-            
-                    header("Location:index.php");
-                  }
-                else
-                  {
-                    echo $message;
-                  }
-              } 
-          ?>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <p id="popis">PreËÌùajte si najnovöie sùaûnosti</p>
-      </td>
-    </tr>
-        <?php
-         
-                  
-          $sql="SELECT * FROM claims order BY id DESC LIMIT 10 ";
-          $res=mysql_query($sql);
-          $pocet=mysql_num_rows($res);
-          
-          $i=0;
-          echo '<div id="pole_staznosti">';
-      echo '<dl>';
-	 
-          while($zaznam = mysql_fetch_assoc($res))
-            {
-              $user  	= $zaznam['id_u'];	
-              $who   	= $zaznam['who'];
-              $date  	= $zaznam['date'];
-              $claim 	= $zaznam['claim'];
-			  $id       = $zaznam['id'];
-              $sys_date = date("d.m.Y \o H:i",strtotime($zaznam['sys_date']));
-              $i++;
-
-
-
-
-              echo '<tr><td colspan="2" align="center"><div id="hlavicka_staznosti">'; 
 			
-              echo '<b>Nick: </b>'.$user.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo"nbsp; <a href='?req=like&id=".$id."'> LIKE </a>&nbsp; <a href='?req=dislike&id=".$id."'> DISLIKE </a>";
-              echo '<p id="staznost_a">'.$claim.'</p>';
-			  
-				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
-  				echo'<dd id="text_odkazu">';
-				echo '<br />';
-				 echo'<form method="post" >';
-					echo'comment'.'<input type="text" name="comment" />';
-					echo'<input name="send_comment" type="submit" value="Pridaù koment·r" />';
-					echo'<input name="hid" type="hidden" value="'.$id.'" />';
+
+		echo'</div>';
 					
-				echo"</form>";	
-				echo"</dd>";
-				
-				
-			  $s = "SELECT * FROM comments WHERE id_c=".$id;
-			  $v = mysql_query($s);
-			  
-			  while($z=mysql_fetch_assoc($v)){
-				echo'<div id="comment_box">';
-				echo " id comentaru ".$z['id_c']." komentar je ".$z['comment'];
-				echo"</div>";
-			  }
-			  
-              echo'</div>';
-			  echo"<br />";
-			  
-			  
-           }
-	
-		   echo"</dl>";
-		   
-         echo'</div>';
-         
-         $sql="SELECT * FROM claims ";
-         $res=mysql_query($sql);
-         $pocet=mysql_num_rows($res);
-         
-         if($pocet>10) 
-            {
-             echo '<p><a href="vypis.php">œalej</a></p>';
-            }
-			
-		
 
 			
-		/*
-			if(!isset($_GET['req']))
-		{
-				$_GET['req']="index";
-		}
-			
-			switch ($_GET['req'])  
-			{
-				case 'vypis':
-				break;
-				
-				case 'vypis':
-				break;
-				
-			
-			}
-		*/	
 		
 		if(isset($_POST['send_comment'])){
 					
@@ -223,12 +75,18 @@ $('dd').hide();
 			$ip = getIpAddress();  			
 			$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ( 1, '$idecko', '$comment', NOW(),'$ip' )";
 			$vys = mysql_query($sql);
-			header("Location: ");										
+			header("Location: ");
+												
 		}
 		
 		
+		if(!isset($_GET['req']))
+			{
+				$_GET['req']="index";
+			}
 		
 		switch($_GET['req']){
+		
 			case 'like':
 				if(isset($_GET['id'])){
 					$id_u=(int) $_GET['id'];
@@ -244,16 +102,21 @@ $('dd').hide();
 					$vys_u = mysql_query($sql_u);
 				}
 			break;
-		}
-		
-		
+			
+			case  'index':
+				index();
+			break;
+			
+			default:
+				echo'<img src="images/f.svg"></a>';
+			break;
+			}
 		?>
-      <p align="center" class="pata">Code and Design by <a href="http://www.am.6f.sk" target="_blank"><img src="images/am_logo.png"  height="15" alt="AM PAGE Andrej Majik Logo"></a>
-      and <a href="http://www.obalco.sk" target="_blank"><img src="images/obalco.png" height="15" alt="OBALCO logo"></a></p>
-    </td>
-  </tr>
-</tbody>
-</table>
-
+		</div> <!--K contetnu-->
+		<div id="footer">
+			<p align="center" class="pata">Code and Design by <a href="http://www.am.6f.sk" target="_blank"><img src="images/am_logo.png"  height="15" alt="AM PAGE Andrej Majik Logo"></a>
+			and <a href="http://www.obalco.sk" target="_blank"><img src="images/obalco.png" height="15" alt="OBALCO logo"></a></p>
+		</div>
+	</div><!--K Containeru-->
 </body>
 </html>
