@@ -106,7 +106,9 @@ function index (){
                 $claim = mysql_real_escape_string(trim($_POST['claim']));
                 $date  = mysql_real_escape_string(trim($_POST['date']));
                 $nick  = mysql_real_escape_string(trim($_POST['nick']));
-               
+                $mail  = mysql_real_escape_string(trim($_POST['email']));
+                $ip = getIpAddress();
+                
 				$ln_who   = strlen($who);
 				$ln_claim = strlen($claim);
 
@@ -118,13 +120,33 @@ function index (){
             
             if ($ok_who === true && $ok_claim === true)
                   {
-					$claim = cenzura($claim);
-                    $sql  = "INSERT INTO claims ( who, claim, date, ip, sys_date) 
-										VALUES ('$who','$claim', '$date', '$ip', NOW())";
-                    $res  = mysql_query($sql);
-                    $id_s = mysql_insert_id(); // funkcia mysql_insert_id dostava poslednu autoinkrementovanu hodnotu primarneho kluca u nas to je id 
-                   
-				   // $vys  = mysql_query($sql); kua naco tu je toto? vykona to druhy krat insert :D
+                  $p = 0;
+                  $sql = "SELECT users.id FROM users where users.nick='$nick' and users.mail='$mail'";
+                  $user_id=mysql_query($sql);
+                  $p = mysql_num_rows($user_id);
+                 
+                    if($p==1)
+                      {
+                      $claim = cenzura($claim);
+                      $sql  = "INSERT INTO claims ( id_u, who, claim, date, ip, sys_date) 
+                      VALUES ('$user_id','$who','$claim', '$date', '$ip', NOW())";
+                      $res  = mysql_query($sql);
+                      $id_s = mysql_insert_id(); // funkcia mysql_insert_id dostava poslednu autoinkrementovanu hodnotu primarneho kluca u nas to je id 
+                      }
+                      else
+                      {
+                      $claim = cenzura($claim);
+                      $sql  = "INSERT INTO users (nick, pass, reg_date, mail, last_log) 
+                      VALUES ('$nick','null',NOW(), '$mail', NOW())";
+                      $res = mysql_query($sql);
+                      $user_id = "SELECT user.id FROM users where users.nick=".$nick;
+                      $user_id = mysql_query($user_id);
+                      $sql  = "INSERT INTO claims ( id_u, who, claim, date, ip, sys_date) 
+                      VALUES ('$user_id','$who','$claim', '$date', '$ip', NOW())";
+                      $res  = mysql_query($sql);
+                      $id_s = mysql_insert_id();
+                      }
+		
                     header("Location:index.php");
                   }
                 else
@@ -152,7 +174,7 @@ function index (){
               $who   	= $zaznam['who'];
               $date  	= $zaznam['date'];
               $claim 	= $zaznam['claim'];
-			  $id       = $zaznam['id'];
+              $id       = $zaznam['id'];
               $sys_date = date("d.m.Y \o H:i",strtotime($zaznam['sys_date']));
            
 
