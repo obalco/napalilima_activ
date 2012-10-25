@@ -42,7 +42,7 @@ $('dd').hide();
 	<div id="container">
 		 <div id="header">
 
-			<a href="index.php"><img class="logo" src="images/napalilima_logo.png" alt="Napalili ma Logo" height="70" /></a>
+			<a href="index.php"><img class="logo" src="images/napalilima_logo3.png" alt="Napalili ma Logo" height="100" /></a>
 			<form action="hladat.php" method="post">
 				<div class="search">
 					<input name="hladat" type="text" id="hladat"   />&nbsp;<input class="src" name="search" type="submit" value="Hlada" />
