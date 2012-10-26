@@ -174,7 +174,7 @@ $('dd').hide();
 
 						$sql = "INSERT INTO tokens (id_u,token,create_date,confirm) VALUES ('$id_u','$token', NOW(), 0)";
 						$vys = mysql_query($sql);
-						$link = 'http://www.napalilima.sk/?confirm.php&tok='.$token;
+						$link = 'http://www.napalilima.sk/confirm.php?tok='.$token;
 						
 						
 						send_mail($mail, $token); 

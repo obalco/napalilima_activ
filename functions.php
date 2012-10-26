@@ -77,20 +77,11 @@ function cenzura($text){
 }
 
 
-
-
-
 function index (){
 	
      
         echo'<p id="popis">PreËÌùajte si najnovöie sùaûnosti</p>';
       
-
-        
-                  
-         
-          
-          
           echo '<div id="pole_staznosti">';
 		echo '<dl>';
 		
@@ -110,13 +101,15 @@ function index (){
 				$date  	= $zaznam['date'];
 				$claim 	= $zaznam['claim'];
 				$id     = $zaznam['id'];
+				$like   = $zaznam['_like'];
+				$dis    = $zaznam['dislike'];
 				
 				$sys_date = date("d.m.Y \o H:i",strtotime($zaznam['sys_date']));
 					
 
 				echo '<div id="hlavicka_staznosti">'; 
 			
-				echo '<b>Nick: </b>'.$nick.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> -> ".likes_claim ($id). " | <a href='?req=dislike&id=".$id."'> DISLIKE </a> -> ".likes_claim ($id);
+				echo '<b>Nick: </b>'.$nick.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> ".$like." | <a href='?req=dislike&id=".$id."'> DISLIKE </a>".$dis;
 				echo '<p id="staznost_a">'.$claim.'</p>';
 			  
 				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
@@ -163,9 +156,7 @@ function index (){
             }
 }
 
-function isexist($nick,$email){
 
-	return true;
 }
 function send_mail($mail,$token){
 			$to=$mail;
@@ -179,11 +170,6 @@ function send_mail($mail,$token){
 			mail($to,$re,$mess,$head);
 }
 
-function adr(){
-	
-	$adr = explode ("/",trim($_SERVER['REQUEST_URI']));
-		return ("http://".$_SERVER['SERVER_NAME'].'/'.$adr[1]);
-}
 
 function create_token() {     
     $token = '';
@@ -205,41 +191,13 @@ function create_token() {
             substr($hash, 16,  4) .
             '' .
             substr($hash, 20, 12);
-		// vybratie tokena a zistenie ci sa nach·dza v db ak ano vytvor nov˝ ciklus while
 			
     return $token;
   }
   
-  
-function likes_claim ($id) {
 
-	$sql = "SELECT _like FROM claims  WHERE id='$id'";
-	$vys = mysql_query($sql);
-	$p = mysql_fetch_assoc($vys);
-	$poc = $p['_like'];
-	
-	return $poc;
-}
 
-function dislikes_claim ($id) {
-	$sql = "SELECT dislike FROM claims WHERE id='$id'";
-	$vys = mysql_query($sql);
-	$p   = mysql_fetch_assoc($vys);
-	$poc = $p['dislike'];
-	
-	return $poc;
-	
-}
 
-function likes_comment ($id,$where='') {
-
-	$sql = "SELECT _like FROM  WHERE id=''";	
-}
-
-function dislikes_comment ($id,$where='') {
-	
-}
-	 
   
 ?>
 
