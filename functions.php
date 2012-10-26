@@ -38,6 +38,11 @@ function getIpAddress()
    return $ipadr;
 }
 
+function adr(){
+	
+	$adr = explode ("/",trim($_SERVER['REQUEST_URI']));
+		return ("http://".$_SERVER['SERVER_NAME'].'/'.$adr[1]);
+}
 
 
 function cenzura($text){
