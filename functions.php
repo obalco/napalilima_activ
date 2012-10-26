@@ -157,7 +157,6 @@ function index (){
 }
 
 
-}
 function send_mail($mail,$token){
 			$to=$mail;
 			$re='WWW.NAPALILIMA.SK';
