@@ -44,7 +44,7 @@ $('dd').hide();
 	<div id="container">
 		 <div id="header">
 
-			<a href="index.php"><img class="logo" src="images/napalilima_logo.png" alt="Napalili ma Logo" height="70" /></a>
+			<a href="index.php"><img class="logo" src="images/napalilima_logo3.png" alt="Napalili ma Logo" height="100" /></a>
 			<form action="hladat.php" method="post">
 				<div class="search">
 					<input name="hladat" type="text" id="hladat"   />&nbsp;<input class="src" name="search" type="submit" value="Hlada" />
@@ -72,7 +72,7 @@ $('dd').hide();
 			$ip = getIpAddress();  			
 			$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ( 1, '$idecko', '$comment', NOW(),'$ip' )";
 			$vys = mysql_query($sql);
-			header("Location:".adr());
+			header("Location:index.php");
 												
 		}
 		
@@ -88,7 +88,7 @@ $('dd').hide();
 						$id_u=(int) $_GET['id'];
 						$sql_u = "UPDATE claims SET _like=_like+1 WHERE id='$id_u'"; 
 						$vys_u = mysql_query($sql_u);
-						header ("Location:".adr());
+						header ("Location:index.php");
 					}
 				break;
 				
@@ -97,7 +97,7 @@ $('dd').hide();
 						$id_u=(int) $_GET['id'];
 						$sql_u = "UPDATE claims SET dislike=dislike+1 WHERE id='$id_u'"; 
 						$vys_u = mysql_query($sql_u);
-						header ("Location:".adr());
+						header ("Location:index.php");
 
 					}
 				break;

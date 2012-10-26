@@ -3,13 +3,15 @@
 
 <html>
 <head>
-	<title>Napalil ma|Vypis!</title>
+	<title>Vyhladavanie!</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1250" >
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<link rel="stylesheet" type="text/css" href="js/jquery.autocomplete.css" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.autocomplete.js"></script>
 <script>
+
+
  $(document).ready(function(){
   $("#hladat").autocomplete("js/autocomplete.php", {
          selectFirst: false,
@@ -17,85 +19,219 @@
 		 minChars: 2,
 		 delay: 100
 		 });
+	
+ $('#close_error_box').click(function(){
+ $('#error_box').slideUp("slow");})	
+		 
+$('dd').hide();
+		
+		$('dt').click(function(){
+			
+				var	rodic = $(this).parent(),
+					 text = $(this).next();
+	
+					 	rodic.find('dd').slideUp();
+						text.not(':visible').slideDown();
+					
+					return false;
+					})	
  });
+ 
+			
 </script>
 </head>
-<body>
-<table class="main_table"  align="center">
-  <tbody>
-    <tr>
-      <td class="hlavicka">
-        <a href="index.php"><img class="logo" src="images/napalilima_logo.png" alt="Napalili ma Logo" height="70" /></a>
-      </td>
-      <td align="right">
-        <form action="hladat.php" method="post">
-          <input name="hladat" type="text" id="hladat" size="20"  />&nbsp;<input name="search" type="submit" value="Hladať" />
-        </form>
-      </td>
-    <tr/>
-  <tr>
-    <?php
-		include('db.php');
-		include('functions.php');
+<body> 
+	<div id="container">
+		 <div id="header">
 
-		$sql="SELECT * FROM staznosti ORDER BY ID DESC";
-		$res=mysql_query($sql);
-		$pocet=mysql_num_rows($res);
+			<a href="index.php"><img class="logo" src="images/napalilima_logo3.png" alt="Napalili ma Logo" height="100" /></a>
+			<form action="hladat.php" method="post">
+				<div class="search">
+					<input name="hladat" type="text" id="hladat"   />&nbsp;<input class="src" name="search" type="submit" value="Hladať" />
+				</div>
+			</form>
+		 </div>
+     
+        <p id="popis">Využite možnosť ventilovať svoj hnev a pomôžte iným vyhnúť sa problémom</p>
+      
+                 
+		<div id="content">
 
-		
-		$i=0;
-		echo '<div id="pole_staznosti">';
-		
-		while($zaznam = mysql_fetch_assoc($res))
-		{
-			$nick 		   = $zaznam['nick'];	
-			$staznost_na   = $zaznam['staznost_na'];
-			$staznost_kedy = $zaznam['staznost_kedy'];
-			$staznost 	   = $zaznam['staznost'];
-			$email		   = $zaznam['email'];
-			$datum         = date("d.m.Y \o H:i",strtotime($zaznam['datum_staznost']));
-			$i++;
-
-			 echo '<tr><td colspan="2" align="center"><div id="hlavicka_staznosti">';
-              echo '<b>Nick: </b>'.$nick.' | <b>Sťažnosť na: </b>'.$staznost_na.' | <b>Sťažnosť kedy: </b>'.$staznost_kedy.' | <b>E-mail: </b>'.$email.' | <b>Dátum odoslania: </b>'.$datum;
-              echo '<p id="staznost_a">'.$staznost.'</p>';
-              echo'</div>';
-		
+          <?php
+            session_start();
+            include('db.php');
+            include('errors.php');
+            include('functions.php');
+			
+			
+		echo'</div>';
+		if(isset($_POST['send_comment'])){
+					
+			$idecko=(isset($_POST['hid'])) ? $_POST['hid'] : "";
+			$comment = mysql_real_escape_string($_POST['comment']);
+			$ip = getIpAddress();  			
+			$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ( 1, '$idecko', '$comment', NOW(),'$ip' )";
+			$vys = mysql_query($sql);
+			header("Location:".adr());
+												
 		}
-	echo'</div>';
+		
+		if(!isset($_GET['req']))
+			{
+				$_GET['req']="index";
+			}
+		
+			switch($_GET['req']){
+			
+				case 'like':
+					if(isset($_GET['id'])){
+						$id_u=(int) $_GET['id'];
+						$sql_u = "UPDATE claims SET _like=_like+1 WHERE id='$id_u'"; 
+						$vys_u = mysql_query($sql_u);
+						header ("Location:".adr());
+					}
+				break;
+				
+				case 'dislike':
+					if(isset($_GET['id'])){
+						$id_u=(int) $_GET['id'];
+						$sql_u = "UPDATE claims SET dislike=dislike+1 WHERE id='$id_u'"; 
+						$vys_u = mysql_query($sql_u);
+						header ("Location:".adr());
+
+					}
+				break;
+				
+				case  'index':
+				
+				/// nadefinovanie premennych pred posielanim 
+				/// po poslani formulara budeme ukladať tieto hodnoty aby user nemusel zadavať hodnoty jak jebo
+				
+			
+				
+			
+
+            if(isset($_POST['send'] )){
+                 $message="";
+				 include_once ('val.php');
+				 include_once ('db.php');
+
+				
+                 $who   = mysql_real_escape_string(trim($_POST['who']));
+                 $claim = mysql_real_escape_string(trim($_POST['claim']));
+				 $nick  = mysql_real_escape_string(trim($_POST['nick']));
+                 $datum = mysql_real_escape_string(trim($_POST['datum']));
+				 $mail  = mysql_real_escape_string(trim($_POST['mail']));
+				 $ip    = getIpAddress();
+				
+				 $w = val_who($who);
+				 $c = val_claim($claim);
+				 $n = val_nick($nick);
+				 $d = val_date($datum);
+				 $m = val_mail($mail);
+				
+				if( ($w && $c && $d && $n && $m) === true ){
+				 // ci existuje tento nick a potom mail
+				 
+				 $sql = "SELECT count(*) AS pocet_n FROM users WHERE nick='$nick'";
+				 $vys = mysql_query($sql);
+				 $poc = mysql_fetch_assoc($vys);
+				 $poc_n = $poc['pocet_n'];
+				 
+				 $sql = $vys = $poc = "";
+				 
+				 $sql = "SELECT count(*) AS pocet_m FROM users WHERE mail='$mail'";
+				 $vys = mysql_query($sql);
+				 $poc = mysql_fetch_assoc($vys);
+				 $poc_m = $poc['pocet_m'];
+
+				 
+					if( ($poc_n==0) && ($poc_m==0) ){
+						$sql = $vys = "";
+						$sql = "INSERT INTO users (nick, reg_date, mail, last_log) VALUES ('$nick', NOW(), '$mail', NOW())";
+						$vys = mysql_query($sql);
+						$id_u = mysql_insert_id();
+
+						$sql = $vys = "";
+						$sql = "INSERT INTO claims (`id_u`,`who`,`claim`,`date`,`_like`,`dislike`,`ip`,`sys_date`,`show`) VALUES ('$id_u','$who','$claim','$datum',0,0,'$ip',NOW(),0)";
+						$vys = mysql_query($sql);
+						
+						$token = create_token();
+						
+						$sql = $vys = "";
+
+						$sql = "INSERT INTO tokens (id_u,token,create_date,confirm) VALUES ('$id_u','$token', NOW(), 0)";
+						$vys = mysql_query($sql);
+						$link = 'http://www.napalilima.sk/confirm.php?tok='.$token;
+						
+						
+						send_mail($mail, $token); 
+						$message.="Bol vam odoslany mail na vami zadanú adresu";
+					      echo '<a href ="'.$link.'">'.$link.'</a>';
+					//	header("Location:send.php");
+						
+					}
+					else if( ($poc_n>0) && ($poc_m>0) ) { 
+							$sql = $vys = "";
+							$sql = "SELECT id FROM users WHERE nick='$nick' AND mail='$mail'";
+							$vys = mysql_query($sql);
+							$id  = mysql_fetch_assoc($vys);
+							$id_u = $id['id'];
+
+							$sql=$vys="";
+							$sql= "INSERT INTO claims (`id_u`,`who`,`claim`,`date`,`_like`,`dislike`,`ip`,`sys_date`,`show`) VALUES ('$id_u','$who','$claim','$datum',0,0,'$ip',NOW(),1)";
+
+							$vys = mysql_query($sql);
+						
+						} 
+						else{
+							// alebo nejake dva if ked chceme specifikovat blizsie co by mal zmenit
+							 
+						}
+							
+            
+				$claim = cenzura($claim);
+				
+				//$id_s = mysql_insert_id();
+					
+				}
+				else
+				{
+					include_once ('errors.php');
+					
+					if (!$w) { $message.= $error[1];}
+					if (!$c) { $message.= $error[2];}
+					if (!$d) { $message.= $error[3];}
+					if (!$n) { $message.= $error[4];}
+					if (!$m) { $message.= $error[5];}
+
+					
+				}
+				
+				echo '<div id="error_box"><div id="close_error_box">X</div>'.$message.'</div>';
+				
+			}
+			
+					   
+			//	header("Location:");
+				
+			
+          
+					index();
+				break;
+				
+				default:
+					echo'<img src="images/f.svg"></a>';
+				break;
+			}	
+		?>
 	
-	//Strankovanie
-	$limit = 2;
-		$page = (isset($_GET['page'])? $_GET['page'] : 1);
-		$neighbors = 3;
-
-        $sql = mysql_query("
-			SELECT SQL_CALC_FOUNDS_ROWS * 
-			FROM staznosti
-			LIMIT $limit OFFSET ".(($page - 1) * $limit));
-        $rows = mysql_result(mysql_query("SELECT FOUND_ROWS()") , 0);
-		 
-		$maxPage = ceil($rows / $limit);
-		echo getPageLink(1, $page);
-		if( $page > $neighbors){
-			echo " ...";
-		}
-		$to = min($maxPage, $page + $neighbors);
-		for($i= max(2, $page - $neighbors + 1 );  $i < $to; $i++){
-			echo getPageLink($i ,$page);
-		}
-		if($page + $neighbors < $maxPage){
-			echo " ...";
-		}
-		if($maxPage > 1){
-			echo getPageLink($maxPage, $page);
-		}
-		mysql_close();
-    ?>
-<p align="center" class="pata">Code and Design by <a href="www.am.6f.sk" target="_blank"><img src="images/am_logo.png"  height="15" alt="AM PAGE Andrej Majik Logo"></a>
-      and <a href="www.obalco.sk" target="_blank"><img src="images/obalco.png" height="15" alt="OBALCO logo"></a></p>
-    </td>
-  </tr>
-</tbody>
-</table>
+		</div> <!--K contetnu-->
+		<div id="footer">
+			<p align="center" class="pata">Code and Design by <a href="http://www.am.6f.sk" target="_blank"><img src="images/am_logo.png"  height="15" alt="AM PAGE Andrej Majik Logo"></a>
+			and <a href="http://www.obalco.sk" target="_blank"><img src="images/obalco.png" height="15" alt="OBALCO logo"></a></p>
+		</div>
+		
+	</div><!--K Containeru-->
 </body>
+</html>
