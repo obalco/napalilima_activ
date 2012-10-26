@@ -131,6 +131,15 @@ textarea{
 	background:white;
 }
 
+#error_box{
+	border-radius:8px;color: #cc3333;background: #ffcccc; border: #cc3333 1px solid; padding:5px 10px 5px 10px; font-size:13px;font-weight:bold; margin-top:15px; 
+}
+#close_error_box{
+	border-radius:2px; background: #ffcccc; border: #cc3333 1px solid; width:10px; height:13px; text-align:center; cursor:pointer; float:right; color:black;position:relative; opacity:0.7;
+}
+#close_error_box:hover{
+	 opacity:1.0; background: #ffcccd;
+}
 #popis{
 font-size: large;
 font-weight: bold;

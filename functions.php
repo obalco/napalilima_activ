@@ -76,111 +76,47 @@ function cenzura($text){
 	return $veta = implode("",$slova);
 }
 
-function getPageLink($i, $page){
-	if($i==$page){
-		return " $i";
-	}
-	return "<a href='" . ( $i !=1 ? "?page=$i" : " . ") . "'> $i </a>";
-}
+
+
+
 
 function index (){
- include ('errors.php');
-	echo'<div id="nova_staznost">';
-				echo '<form  method="post">
-						Co/Kto:<br /><input type="text" name="who" /><br/>
-						Ako/Cim:<br /><textarea name="claim" rows="5" cols="95"></textarea><br/><br/>
-						Nick: <input type="text" name="nick" /> 
-						Kedy: <input type="text" name="date" />
-						E-mail: <input type="text" name="email" /><br/>
-						<p align="center"><input type="submit" id="button" value="Odoslaù sùaûnosù" name="send" /></p>
-					  </form>';
-			echo'</div>';
-			
-                
-            if(isset($_POST['send'] ))
-              {
-                $message="";
-				 include_once ('errors.php');
-
-                $who   = mysql_real_escape_string(trim($_POST['who']));
-                $claim = mysql_real_escape_string(trim($_POST['claim']));
-                $date  = mysql_real_escape_string(trim($_POST['date']));
-                $nick  = mysql_real_escape_string(trim($_POST['nick']));
-                $mail  = mysql_real_escape_string(trim($_POST['email']));
-                $ip = getIpAddress();
-                
-				$ln_who   = strlen($who);
-				$ln_claim = strlen($claim);
-
-				if($ln_who >3 && $ln_who < 50) {$ok_who = true; } 		   else {$ok_who = false;$message.=$error[1];}
-				if($ln_claim >5 && $ln_claim < 200) {$ok_claim = true; }   else {$ok_claim = false; $message.=$error[2];}
-			
-				// blo by fajn keby nick a mail sa dava do session :) teda pri logovanÌ :)
-				
-            
-            if ($ok_who === true && $ok_claim === true)
-                  {
-                  $p = 0;
-                  $sql = "SELECT users.id FROM users where users.nick='$nick' and users.mail='$mail'";
-                  $user_id=mysql_query($sql);
-                  $p = mysql_num_rows($user_id);
-                 
-                    if($p==1)
-                      {
-                      $claim = cenzura($claim);
-                      $sql  = "INSERT INTO claims ( id_u, who, claim, date, ip, sys_date) 
-                      VALUES ('$user_id','$who','$claim', '$date', '$ip', NOW())";
-                      $res  = mysql_query($sql);
-                      $id_s = mysql_insert_id(); // funkcia mysql_insert_id dostava poslednu autoinkrementovanu hodnotu primarneho kluca u nas to je id 
-                      }
-                      else
-                      {
-                      $claim = cenzura($claim);
-                      $sql  = "INSERT INTO users (nick, pass, reg_date, mail, last_log) 
-                      VALUES ('$nick','null',NOW(), '$mail', NOW())";
-                      $res = mysql_query($sql);
-                      $user_id = "SELECT user.id FROM users where users.nick=".$nick;
-                      $user_id = mysql_query($user_id);
-                      $sql  = "INSERT INTO claims ( id_u, who, claim, date, ip, sys_date) 
-                      VALUES ('$user_id','$who','$claim', '$date', '$ip', NOW())";
-                      $res  = mysql_query($sql);
-                      $id_s = mysql_insert_id();
-                      }
-		
-                    header("Location:index.php");
-                  }
-                else
-                  {
-                    echo $message;
-                  }
-              } 
-          ?>
+	
      
-        <p id="popis">PreËÌùajte si najnovöie sùaûnosti</p>
+        echo'<p id="popis">PreËÌùajte si najnovöie sùaûnosti</p>';
       
 
-        <?php
+        
                   
-          $sql="SELECT * FROM claims order BY id DESC LIMIT 10 ";
-          $res=mysql_query($sql);
-          $pocet=mysql_num_rows($res);
+         
+          
           
           echo '<div id="pole_staznosti">';
 		echo '<dl>';
-	 
+		
+		  $sql="SELECT * FROM claims where `show`=1 ORDER BY id desc";
+          $res=mysql_query($sql);
+		  
           while($zaznam = mysql_fetch_assoc($res))
             {
-              $user  	= $zaznam['id_u'];	
-              $who   	= $zaznam['who'];
-              $date  	= $zaznam['date'];
-              $claim 	= $zaznam['claim'];
-              $id       = $zaznam['id'];
-              $sys_date = date("d.m.Y \o H:i",strtotime($zaznam['sys_date']));
-           
+				$user  	= $zaznam['id_u'];	
+
+				$sql_1="SELECT nick FROM users WHERE id=".$user;
+				$vys_1=mysql_query($sql_1);
+				$user_name=mysql_fetch_assoc($vys_1);
+				
+				$nick=$user_name['nick'];
+				$who   	= $zaznam['who'];
+				$date  	= $zaznam['date'];
+				$claim 	= $zaznam['claim'];
+				$id     = $zaznam['id'];
+				
+				$sys_date = date("d.m.Y \o H:i",strtotime($zaznam['sys_date']));
+					
 
 				echo '<div id="hlavicka_staznosti">'; 
 			
-				echo '<b>Nick: </b>'.$user.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a>&nbsp; <a href='?req=dislike&id=".$id."'> DISLIKE </a>";
+				echo '<b>Nick: </b>'.$nick.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> -> ".likes_claim ($id). " | <a href='?req=dislike&id=".$id."'> DISLIKE </a> -> ".likes_claim ($id);
 				echo '<p id="staznost_a">'.$claim.'</p>';
 			  
 				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
@@ -217,17 +153,95 @@ function index (){
 		echo"</dl>";
 		   
          echo'</div>';
-         
-         $sql="SELECT * FROM claims ";
+         $sql="SELECT * FROM claims where `show`=1";
          $res=mysql_query($sql);
-         $pocet=mysql_num_rows($res);
-         
+		 $pocet=mysql_num_rows($res);
+		 
          if($pocet>10) 
             {
              echo '<p><a href="vypis.php">œalej</a></p>';
             }
 }
 
+function isexist($nick,$email){
+
+	return true;
+}
+function send_mail($mail,$token){
+			$to=$mail;
+			$re='WWW.NAPALILIMA.SK';
+			$head="Content-Type: text/html; charset=utf-8\n";
+			$head.="Od:admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
+			$head.="Reply-To: admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
+			$mess='Pr·ve ste pridali svoju prv˙ sùaûnosù/koment·r na str·nka <a href="http://www.napalilima.sk>www.napalilima.sk</a>".
+				 Pre zobrazenie vaöej sùaûnosti/koment·ru je potrebnÈ aby ste klikli na tento odkaz. ';
+			$mess.=$token;
+			mail($to,$re,$mess,$head);
+}
+
+function adr(){
+	
+	$adr = explode ("/",trim($_SERVER['REQUEST_URI']));
+		return ("http://".$_SERVER['SERVER_NAME'].'/'.$adr[1]);
+}
+
+function create_token() {     
+    $token = '';
+    $uid = uniqid("", true);
+	$data='';
+    
+    $data .= $_SERVER['REQUEST_TIME'];
+    $data .= $_SERVER['HTTP_USER_AGENT'];
+    $data .= $_SERVER['REMOTE_ADDR'];
+    $data .= $_SERVER['REMOTE_PORT'];
+    $hash = strtoupper(hash('ripemd128', $uid . $token . md5($data)));
+    $token =   
+            substr($hash,  0,  8) . 
+            '' .
+            substr($hash,  8,  4) .
+            '' .
+            substr($hash, 12,  4) .
+            '' .
+            substr($hash, 16,  4) .
+            '' .
+            substr($hash, 20, 12);
+		// vybratie tokena a zistenie ci sa nach·dza v db ak ano vytvor nov˝ ciklus while
+			
+    return $token;
+  }
+  
+  
+function likes_claim ($id) {
+
+	$sql = "SELECT _like FROM claims  WHERE id='$id'";
+	$vys = mysql_query($sql);
+	$p = mysql_fetch_assoc($vys);
+	$poc = $p['_like'];
+	
+	return $poc;
+}
+
+function dislikes_claim ($id) {
+	$sql = "SELECT dislike FROM claims WHERE id='$id'";
+	$vys = mysql_query($sql);
+	$p   = mysql_fetch_assoc($vys);
+	$poc = $p['dislike'];
+	
+	return $poc;
+	
+}
+
+function likes_comment ($id,$where='') {
+
+	$sql = "SELECT _like FROM  WHERE id=''";	
+}
+
+function dislikes_comment ($id,$where='') {
+	
+}
+	 
+  
 ?>
 
 
+	

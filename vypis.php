@@ -38,63 +38,31 @@
 		include('db.php');
 		include('functions.php');
 
-                  
-          $sql="SELECT * FROM claims order BY id DESC";
-          $res=mysql_query($sql);
-          $pocet=mysql_num_rows($res);
-          
-          echo '<div id="pole_staznosti">';
-		echo '<dl>';
-	 
-          while($zaznam = mysql_fetch_assoc($res))
-            {
-              $user  	= $zaznam['id_u'];	
-              $who   	= $zaznam['who'];
-              $date  	= $zaznam['date'];
-              $claim 	= $zaznam['claim'];
-              $id       = $zaznam['id'];
-              $sys_date = date("d.m.Y \o H:i",strtotime($zaznam['sys_date']));
-           
+		$sql="SELECT * FROM staznosti ORDER BY ID DESC";
+		$res=mysql_query($sql);
+		$pocet=mysql_num_rows($res);
 
-				echo '<div id="hlavicka_staznosti">'; 
-			
-				echo '<b>Nick: </b>'.$user.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a>&nbsp; <a href='?req=dislike&id=".$id."'> DISLIKE </a>";
-				echo '<p id="staznost_a">'.$claim.'</p>';
-			  
-				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
-				
-  				echo'<dd id="text_odkazu">';
-				echo '<br />';
-				
-				echo'<form method="post" >';
-				echo'Koment·r:';
-				echo '<br />';
+		
+		$i=0;
+		echo '<div id="pole_staznosti">';
+		
+		while($zaznam = mysql_fetch_assoc($res))
+		{
+			$nick 		   = $zaznam['nick'];	
+			$staznost_na   = $zaznam['staznost_na'];
+			$staznost_kedy = $zaznam['staznost_kedy'];
+			$staznost 	   = $zaznam['staznost'];
+			$email		   = $zaznam['email'];
+			$datum         = date("d.m.Y \o H:i",strtotime($zaznam['datum_staznost']));
+			$i++;
 
-					echo'<textarea name="comment" rows="5" cols="87" ></textarea>';
-					echo'<input name="send_comment" type="submit" value="Pridaù koment·r" />';
-					echo'<input name="hid" type="hidden" value="'.$id.'" />';
-				echo"</form>";
-				
-				echo"</dd>";
-				echo '<br />';
-
-				
-				  $s = "SELECT * FROM comments WHERE id_c=".$id;
-				  $v = mysql_query($s);
-				  
-				  while($z=mysql_fetch_assoc($v)){
-					echo'<div id="comment_box">';
-					echo " id comentaru ".$z['id_c']." komentar je ".$z['comment'];
-					echo"</div>";
-				  }
-				echo'</div>';
-				echo"<br />";
-			
-			}
-	
-		echo"</dl>";
-		   
-         echo'</div>';
+			 echo '<tr><td colspan="2" align="center"><div id="hlavicka_staznosti">';
+              echo '<b>Nick: </b>'.$nick.' | <b>Sùaûnosù na: </b>'.$staznost_na.' | <b>Sùaûnosù kedy: </b>'.$staznost_kedy.' | <b>E-mail: </b>'.$email.' | <b>D·tum odoslania: </b>'.$datum;
+              echo '<p id="staznost_a">'.$staznost.'</p>';
+              echo'</div>';
+		
+		}
+	echo'</div>';
 	
 	//Strankovanie
 	$limit = 2;

@@ -42,9 +42,9 @@
 <?php
 	if(isset($_POST['search'])){
 		include('db.php');
-		$who =mysql_real_escape_string($_POST['hladat']);
+		$claim =mysql_real_escape_string($_POST['hladat']);
 
-		$sql="SELECT * FROM claims WHERE who='$who'";
+		$sql="SELECT * FROM claims WHERE who='$claim'";
 		$res=mysql_query($sql);
 		$pocet=mysql_num_rows($res);
 
