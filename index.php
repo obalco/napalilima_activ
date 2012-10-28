@@ -345,8 +345,27 @@ $('dd').hide();
 			
 				echo '<b>Nick: </b>'.$nick.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> ".$like." | <a href='?req=dislike&id=".$id."'> DISLIKE </a>".$dis;
 				echo '<p id="staznost_a">'.$claim.'</p>';
-			  
-				
+       
+					$s = "SELECT * FROM comments WHERE id_c='$id' ";
+					$v = mysql_query($s);
+				  $pocet_commentov = mysql_num_rows($v);
+				  if($pocet_commentov==1) 
+            {
+              echo "<p id=\"popis\">Komentare</p>";
+              echo "<div>K staûnosti je $pocet_commentov koment·r</div>";
+            }
+            elseif($pocet_commentov>1 && $pocet_commentov<5) 
+            {
+              echo "<p id=\"popis\">Komentare</p>";
+              echo "<div>K staûnosti je $pocet_commentov koment·re</div>";
+            }
+            elseif($pocet_commentov>4) 
+            {
+              echo "<p id=\"popis\">Komentare</p>";
+              echo "<div>K staûnosti je $pocet_commentov koment·rov</div>";
+            }
+            
+           echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
 				
   				echo'<dd id="text_odkazu">';
 				echo '<br />';
@@ -363,18 +382,13 @@ $('dd').hide();
 
 					echo' Nick: <input name="nick_c" type="text" />';
 					echo' E-mail: <input name="mail_c" type="text" /> ';
-				
+				echo'<input name="send_comment" type="submit" value="Prida? koment·r" />';
 					
 					echo'<input name="hid" type="hidden" value="'.$id.'" />';
 				echo"</form>";
 				
 				echo"</dd>";
-
-        echo "<p id=\"popis\">Komentare</p>";
-					$s = "SELECT * FROM comments WHERE id_c='$id' ";
-				
-				  $v = mysql_query($s);
-				
+          
 				  while($z=mysql_fetch_assoc($v)){
 				  $sys_date = date("d.m.Y \o H:i",strtotime($z['sys_date']));
 				  $pom = $z['id_u'];
@@ -386,7 +400,7 @@ $('dd').hide();
 					echo "Pridal <strong>",$u['nick'],"</strong>&nbsp;",$sys_date,"&nbsp;<br />",$z['comment'];
 					echo"</div><br />";
 				  }
-				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
+				
 				echo'</div>';
 				echo"<br />";
 			
