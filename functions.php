@@ -123,11 +123,19 @@ function index (){
 				echo '<br />';
 				
 				echo'<form method="post" >';
-				echo'Koment·r:';
+					
+				
 				echo '<br />';
-
+				echo'Koment·r:'; 
+				echo '<br />';
 					echo'<textarea name="comment" rows="5" cols="87" ></textarea>';
+					echo '<br />';
+					echo '<br />';
+
+					echo' Nick: <input name="nick_c" type="text" />';
+					echo' E-mail: <input name="mail_c" type="text" /> ';
 					echo'<input name="send_comment" type="submit" value="Pridaù koment·r" />';
+					
 					echo'<input name="hid" type="hidden" value="'.$id.'" />';
 				echo"</form>";
 				
@@ -135,7 +143,10 @@ function index (){
 				echo '<br />';
 
 				
-				  $s = "SELECT * FROM comments WHERE id_c=".$id;
+				  $s = "SELECT * FROM comments  as c
+						INNER JOIN users as u
+						ON c.id_u=u.id
+						WHERE id_c='$id' AND u.reg=1";
 				  $v = mysql_query($s);
 				  
 				  while($z=mysql_fetch_assoc($v)){
@@ -165,9 +176,10 @@ function index (){
 function send_mail($mail,$token){
 			$to=$mail;
 			$re='WWW.NAPALILIMA.SK';
-			$head="Content-Type: text/html; charset=utf-8\n";
-			$head.="Od:admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
-			$head.="Reply-To: admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
+			$head = 'info@napalilima.sk';
+		#	$head="Content-Type: text/html; charset=utf-8\n";
+		#	$head.="Od:admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
+		#	$head.="Reply-To: admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
 			$mess='Pr·ve ste pridali svoju prv˙ sùaûnosù/koment·r na str·nka <a href="http://www.napalilima.sk>www.napalilima.sk</a>".
 				 Pre zobrazenie vaöej sùaûnosti/koment·ru je potrebnÈ aby ste klikli na tento odkaz. ';
 			$mess.=$token;

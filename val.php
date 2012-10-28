@@ -65,6 +65,20 @@ function val_claim($input, $min='3', $max='1000'){
 	return $ok;
 }
 
+function val_comment($input, $min='3', $max='1000'){
+
+	$ok=false;
+
+		if((strlen($input)>$min) && (strlen($input)<$max)){
+			$ok = true;					
+		}
+		else 
+		{
+			$ok = false;
+		}
+	return $ok;
+}
+
 function val_who($input, $min='3', $max='100'){
 
 	$ok=false;
