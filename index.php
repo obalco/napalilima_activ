@@ -346,7 +346,7 @@ $('dd').hide();
 				echo '<b>Nick: </b>'.$nick.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> ".$like." | <a href='?req=dislike&id=".$id."'> DISLIKE </a>".$dis;
 				echo '<p id="staznost_a">'.$claim.'</p>';
 			  
-				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
+				
 				
   				echo'<dd id="text_odkazu">';
 				echo '<br />';
@@ -363,30 +363,30 @@ $('dd').hide();
 
 					echo' Nick: <input name="nick_c" type="text" />';
 					echo' E-mail: <input name="mail_c" type="text" /> ';
-					echo'<input name="send_comment" type="submit" value="Pridaù koment·r" />';
+				
 					
 					echo'<input name="hid" type="hidden" value="'.$id.'" />';
 				echo"</form>";
 				
 				echo"</dd>";
-				echo '<br />';
 
-				
-				 /* $s = "SELECT * FROM comments as co
-						INNER JOIN users as u
-						ON co.id_u=u.id
-						WHERE co.id_c='$id'";
-					*/	
-						
+        echo "<p id=\"popis\">Komentare</p>";
 					$s = "SELECT * FROM comments WHERE id_c='$id' ";
-					 
+				
 				  $v = mysql_query($s);
-				  
+				
 				  while($z=mysql_fetch_assoc($v)){
+				  $sys_date = date("d.m.Y \o H:i",strtotime($z['sys_date']));
+				  $pom = $z['id_u'];
+				  $sql = "SELECT nick FROM users WHERE id=".$pom; 
+				  $vys5 = mysql_query($sql);
+				  $u = mysql_fetch_assoc($vys5);
+	
 					echo'<div id="comment_box">';
-					echo " id comentaru ".$z['id_c']." komentar je ".$z['comment'];
-					echo"</div>";
+					echo "Pridal <strong>",$u['nick'],"</strong>&nbsp;",$sys_date,"&nbsp;<br />",$z['comment'];
+					echo"</div><br />";
 				  }
+				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
 				echo'</div>';
 				echo"<br />";
 			
