@@ -17,7 +17,7 @@
 
 <title>Napalilima.sk!</title>
 
-<meta http-equiv="Content-Type" content="text/html; windows-1250" />
+<meta http-equiv="Content-Type" content="text/html; cp1250_bin" />
 
 </head>
 
@@ -357,7 +357,7 @@ $('dd').hide();
             elseif($pocet_commentov>1 && $pocet_commentov<5) 
             {
               echo "<p id=\"popis\">Komentare</p>";
-              echo "<div>K stažnosti je $pocet_commentov komentáre</div>";
+              echo "<div>K stažnosti sú $pocet_commentov komentáre</div>";
             }
             elseif($pocet_commentov>4) 
             {
@@ -382,7 +382,7 @@ $('dd').hide();
 
 					echo' Nick: <input name="nick_c" type="text" />';
 					echo' E-mail: <input name="mail_c" type="text" /> ';
-				echo'<input name="send_comment" type="submit" value="Prida? komentár" />';
+				echo'<input name="send_comment" type="submit" value="Prida komentár" />';
 					
 					echo'<input name="hid" type="hidden" value="'.$id.'" />';
 				echo"</form>";
