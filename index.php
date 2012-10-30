@@ -17,7 +17,7 @@
 
 <title>Napalilima.sk!</title>
 
-<meta http-equiv="Content-Type" content="text/html" charset="windows-1250" />
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 
 </head>
 
@@ -66,12 +66,12 @@ $('dd').hide();
 			<a href="index.php"><img class="logo" src="images/napalilima_logo3.png" alt="Napalili ma Logo" height="70" /></a>
 			<form action="hladat.php" method="post">
 				<div class="search">
-					<input name="hladat" type="text" id="hladat"   />&nbsp;<input class="src" name="search" type="submit" value="Hladať" />
+					<input name="hladat" type="text" id="hladat"   />&nbsp;<input class="src" name="search" type="submit" value="HladaĹĄ" />
 				</div>
 			</form>
 		 </div>
      
-        <p id="popis">Využite možnosť ventilovať svoj hnev a pomôžte iným vyhnúť sa problémom</p>
+        <p id="popis">VyuĹľite moĹľnosĹĄ ventilovaĹĄ svoj hnev a pomĂ´Ĺľte inĂ˝m vyhnĂşĹĄ sa problĂ©mom</p>
       
                  
 		<div id="content">
@@ -118,7 +118,7 @@ $('dd').hide();
 				case  'index':
 				
 				/// nadefinovanie premennych pred posielanim 
-				/// po poslani formulara budeme ukladať tieto hodnoty aby user nemusel zadavať hodnoty jak jebo
+				/// po poslani formulara budeme ukladaĹĄ tieto hodnoty aby user nemusel zadavaĹĄ hodnoty jak jebo
 				
 			
 				
@@ -131,7 +131,7 @@ $('dd').hide();
 							Kedy: <input type="text" name="datum" />
 							E-mail: <input type="text" name="mail" />
 							<br />
-							<p align="center"><input type="submit" id="button" value="Odoslať sťažnosť" name="send" /></p>
+							<p align="center"><input type="submit" id="button" value="OdoslaĹĄ sĹĄaĹľnosĹĄ" name="send" /></p>
 						</form>';
 				echo'</div>';
 			
@@ -192,9 +192,9 @@ $('dd').hide();
 						
 						
 						send_mail($mail, $token); 
-						$message.="Bol vam odoslany mail na vami zadanú adresu $mail";
+						$message.="Bol vam odoslany mail na vami zadanĂş adresu $mail";
 					 //     echo '<a href ="'.$link.'">'.$link.'</a>';
-						header("Location:send.php");
+						// header("Location:send.php");
 						
 					}
 					else if( ($poc_n>0) && ($poc_m>0) ) { 
@@ -268,6 +268,9 @@ $('dd').hide();
 					 $poc_m = $poc['pocet_m'];
 				
 					if( ($poc_n==0) && ($poc_m==0) ){
+              $message.= $error[8];
+              echo '<div id="error_box"><div id="close_error_box">X</div>'.$message.'</div>'; 
+					/* ked toto rozsirime o pouzivanie confirm mailu tak sa bude dat pridat comentar aj bez pridania staznosti ...zatial to tak ale nepojde
 							$sql = $vys = "";
 							$sql = "INSERT INTO users (nick, reg_date, mail, last_log) VALUES ('$nick_c', NOW(), '$mail_c', NOW())";
 							$vys = mysql_query($sql);
@@ -277,10 +280,10 @@ $('dd').hide();
 							$sql = $vys = "";
 							$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ('$id_u', '$idecko', '$comment', NOW(), '$ip')";
 							$vys = mysql_query($sql);
-						//	header("Location:send.php");
+						//	header("Location:send.php"); */
 							
 					}
-					else if( ($poc_n>0) && ($poc_m>0) ) { 
+					else if( ($poc_n==0) && ($poc_m==0) ) { 
 								$sql = $vys = "";
 								$sql = "SELECT id FROM users WHERE nick='$nick_c' AND mail='$mail_c'";
 								$vys = mysql_query($sql);
@@ -289,7 +292,7 @@ $('dd').hide();
 
 								$sql = $vys="";
 								$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ('$id_u', '$idecko', '$comment', NOW(), '$ip')";
-								$vys = mysql_query($sql) or print("Došlo k chybě v dotazu: ".$sql."<br>".mysql_error());
+								$vys = mysql_query($sql) or print("DoĹˇlo k chybÄ› v dotazu: ".$sql."<br>".mysql_error());
 ;
 							
 					} 
@@ -308,7 +311,7 @@ $('dd').hide();
 				 
 		}				
 					//index();
-					echo'<p id="popis">Prečíťajte si najnovšie sťažnosti</p>';
+					echo'<p id="popis">PreÄŤĂ­ĹĄajte si najnovĹˇie sĹĄaĹľnosti</p>';
       
           echo '<div id="pole_staznosti">';
 		echo '<dl>';
@@ -343,7 +346,7 @@ $('dd').hide();
 
 				echo '<div id="hlavicka_staznosti">'; 
 			
-				echo '<b>Nick: </b>'.$nick.' | <b>Sťažnosť na: </b>'.$who.' | <b>Sťažnosť kedy: </b>'.$date.' | <b>Dátum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> ".$like." | <a href='?req=dislike&id=".$id."'> DISLIKE </a>".$dis;
+				echo '<b>Nick: </b>'.$nick.' | <b>SĹĄaĹľnosĹĄ na: </b>'.$who.' | <b>SĹĄaĹľnosĹĄ kedy: </b>'.$date.' | <b>DĂˇtum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> ".$like." | <a href='?req=dislike&id=".$id."'> DISLIKE </a>".$dis;
 				echo '<p id="staznost_a">'.$claim.'</p>';
        
 					$s = "SELECT * FROM comments WHERE id_c='$id' ";
@@ -352,11 +355,11 @@ $('dd').hide();
 				 
           echo "<div id=\"popis\">Komentare ($pocet_commentov)</div>";
           echo "<br />";  
-          echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj komentár</a></dt>";
+          echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj komentĂˇr</a></dt>";
   				echo'<dd id="text_odkazu">';
 			  	echo'<form method="post" >';
 			  	echo '<br />';
-			  	echo'Komentár:'; 
+			  	echo'KomentĂˇr:'; 
 			  	echo '<br />';
 					echo'<textarea name="comment" rows="2" cols="87" ></textarea>';
 					echo '<br />';
@@ -364,7 +367,7 @@ $('dd').hide();
 
 					echo' Nick: <input name="nick_c" type="text" />';
 					echo' E-mail: <input name="mail_c" type="text" /> ';
-			  	echo'<input name="send_comment" type="submit" value="Pridať komentár" />';
+			  	echo'<input name="send_comment" type="submit" value="PridaĹĄ komentĂˇr" />';
 					echo '<br />';
 					echo'<input name="hid" type="hidden" value="'.$id.'" />';
 			  	echo"</form>";
@@ -398,7 +401,7 @@ $('dd').hide();
 		 
          if($pocet>10) 
             {
-             echo '<p><a href="vypis.php">Ďalej</a></p>';
+             echo '<p><a href="vypis.php">ÄŽalej</a></p>';
             }
 			
 				break;

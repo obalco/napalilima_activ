@@ -1,14 +1,14 @@
 <?php
-// takto nejak si predstavujem errors  vedla kazdeho kluca bude vypísaná message s chybou
+// takto nejak si predstavujem errors  vedla kazdeho kluca bude vypÃ­sanÃ¡ message s chybou
 $error=array(
-		 1=>'Dåka <b>Kto/Èo</b> musí obsahova od 3 do 100 znakov. <br />',
-		 2=>'Dåka <b>sanosti</b> musí obsahova od 3 do 1000 znakov. <br />',
-		 3=>'<b>Dátum</b> musí by v tvare dd.mm.rrrr <br />',
-		 4=>'Dåka <b>nicku</b> musí obsahova od 3 do 20 znakov. Nick môe obsahova alfanumerické znaky, podèiarkovník a pomlèku. <br />',
-		 5=>'<b>E-mail</b> môe by v tvare meno.meno@domena.krajina alebo meno@domena.krajina. <br />',
-		 6=>'¼utujeme, ale kombinácia <b>nicku</b> a <b>e-mailu</b> nesúlasí. <br />',
-		 7=>'Pouite nick a mail ako pri prvom príspevku na stránku.',
-		 8=>'<b></b>',
+		 1=>'DÄºÅ¾ka <b>Kto/ÄŒo</b> musÃ­ obsahovaÅ¥ od 3 do 100 znakov. <br />',
+		 2=>'DÄºÅ¾ka <b>sÅ¥aÅ¾nosti</b> musÃ­ obsahovaÅ¥ od 3 do 1000 znakov. <br />',
+		 3=>'<b>DÃ¡tum</b> musÃ­ byÅ¥ v tvare dd.mm.rrrr <br />',
+		 4=>'DÄºÅ¾ka <b>nicku</b> musÃ­ obsahovaÅ¥ od 3 do 20 znakov. Nick mÃ´Å¾e obsahovaÅ¥ alfanumerickÃ© znaky, podÄiarkovnÃ­k a pomlÄku. <br />',
+		 5=>'<b>E-mail</b> mÃ´Å¾e byÅ¥ v tvare meno.meno@domena.krajina alebo meno@domena.krajina. <br />',
+		 6=>'Ä½utujeme, ale kombinÃ¡cia <b>nicku</b> a <b>e-mailu</b> nesÃºlasÃ­. <br />',
+		 7=>'PouÅ¾ite nick a mail ako pri prvom prÃ­spevku na strÃ¡nku.<br />',
+		 8=>'PridavaÅ¥ komentÃ¡re mÃ´Å¾ete, aÅ¾ po pridanÃ­ VaÅ¡ej prvej sÅ¥aÅ¾nosti.<br />',
 		 9=>'<b></b>',
 		10=>'<b></b>',
 		11=>'<b></b>',

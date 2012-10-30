@@ -50,7 +50,7 @@ function cenzura($text){
 	$str = "";
 	$slova=array();
 	$znak= "";
-	$vulgar = Array ("pica","piËa", "kokot","kokotisko", "jebo","jeb","jebak","kurva","jebaù","jebat","jebnut˝","vyjeban˝"); // Sem dopln slova ktore ta napadnu :D
+	$vulgar = Array ("pica","piƒça", "kokot","kokotisko", "jebo","jeb","jebak","kurva","jeba≈•","jebat","jebnut√Ω","vyjeban√Ω"); // Sem dopln slova ktore ta napadnu :D
 	$oddelovace = Array(","," ",".","",PHP_EOL);
 	$uprava = "";
 
@@ -85,7 +85,7 @@ function cenzura($text){
 function index (){
 	
      
-        echo'<p id="popis">PreËÌùajte si najnovöie sùaûnosti</p>';
+        echo'<p id="popis">Preƒç√≠≈•ajte si najnov≈°ie s≈•a≈ænosti</p>';
       
           echo '<div id="pole_staznosti">';
 		echo '<dl>';
@@ -114,10 +114,10 @@ function index (){
 
 				echo '<div id="hlavicka_staznosti">'; 
 			
-				echo '<b>Nick: </b>'.$nick.' | <b>Sùaûnosù na: </b>'.$who.' | <b>Sùaûnosù kedy: </b>'.$date.' | <b>D·tum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> ".$like." | <a href='?req=dislike&id=".$id."'> DISLIKE </a>".$dis;
+				echo '<b>Nick: </b>'.$nick.' | <b>S≈•a≈ænos≈• na: </b>'.$who.' | <b>S≈•a≈ænos≈• kedy: </b>'.$date.' | <b>D√°tum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> ".$like." | <a href='?req=dislike&id=".$id."'> DISLIKE </a>".$dis;
 				echo '<p id="staznost_a">'.$claim.'</p>';
 			  
-				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment·r</a></dt>";
+				echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj koment√°r</a></dt>";
 				
   				echo'<dd id="text_odkazu">';
 				echo '<br />';
@@ -126,7 +126,7 @@ function index (){
 					
 				
 				echo '<br />';
-				echo'Koment·r:'; 
+				echo'Koment√°r:'; 
 				echo '<br />';
 					echo'<textarea name="comment" rows="5" cols="87" ></textarea>';
 					echo '<br />';
@@ -134,7 +134,7 @@ function index (){
 
 					echo' Nick: <input name="nick_c" type="text" />';
 					echo' E-mail: <input name="mail_c" type="text" /> ';
-					echo'<input name="send_comment" type="submit" value="Pridaù koment·r" />';
+					echo'<input name="send_comment" type="submit" value="Prida≈• koment√°r" />';
 					
 					echo'<input name="hid" type="hidden" value="'.$id.'" />';
 				echo"</form>";
@@ -168,7 +168,7 @@ function index (){
 		 
          if($pocet>10) 
             {
-             echo '<p><a href="vypis.php">œalej</a></p>';
+             echo '<p><a href="vypis.php">ƒéalej</a></p>';
             }
 }
 
@@ -176,11 +176,10 @@ function index (){
 function send_mail($mail,$token){
 			$to=$mail;
 			$re='WWW.NAPALILIMA.SK';
-	    #$head="Content-Type: text/html;";
-			#$head.="Od:admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
-			#$head.="Reply-To: admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
-			$mess='Pr·ve ste pridali svoju prv˙ sùaûnosù/koment·r na str·nka <a href="http://www.napalilima.sk>www.napalilima.sk</a>".
-				 Pre zobrazenie vaöej sùaûnosti/koment·ru je potrebnÈ aby ste klikli na tento odkaz. ';
+	    $head="Content-Type: text/html;";
+			$head.="Od:admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
+			$head.="Reply-To: admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
+			$mess='Pr√°ve ste pridali svoju prv√∫ s≈•a≈ænos≈•/koment√°r na str√°nka <a href="http://www.napalilima.sk>www.napalilima.sk</a>". Pre zobrazenie va≈°ej s≈•a≈ænosti/koment√°ru je potrebn√© aby ste klikli na tento odkaz. ';
 			$mess.=$token;
 			mail($to,$re,$mess,$head);
 }
@@ -189,7 +188,7 @@ function send_mail($mail,$token){
 function create_token() {     
     $token = '';
     $uid = uniqid("", true);
-	$data='';
+	  $data='';
     
     $data .= $_SERVER['REQUEST_TIME'];
     $data .= $_SERVER['HTTP_USER_AGENT'];
@@ -209,11 +208,7 @@ function create_token() {
 			
     return $token;
   }
-  
-
-
-
-  
+ 
 ?>
 
 
