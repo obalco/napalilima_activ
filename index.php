@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+d<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 
@@ -283,7 +283,7 @@ $('dd').hide();
 						//	header("Location:send.php"); */
 							
 					}
-					else if( ($poc_n==0) && ($poc_m==0) ) { 
+					else if( ($poc_n>0) && ($poc_m>0) ) { 
 								$sql = $vys = "";
 								$sql = "SELECT id FROM users WHERE nick='$nick_c' AND mail='$mail_c'";
 								$vys = mysql_query($sql);
