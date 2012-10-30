@@ -146,7 +146,10 @@ $('dd').hide();
 					 $poc = mysql_fetch_assoc($vys);
 					 $poc_m = $poc['pocet_m'];
 				
-					if( ($poc_n==0) && ($poc_m==0) ){
+						if( ($poc_n==0) && ($poc_m==0) ){
+              $message.= $error[8];
+              echo '<div id="error_box"><div id="close_error_box">X</div>'.$message.'</div>'; 
+					/* ked toto rozsirime o pouzivanie confirm mailu tak sa bude dat pridat comentar aj bez pridania staznosti ...zatial to tak ale nepojde
 							$sql = $vys = "";
 							$sql = "INSERT INTO users (nick, reg_date, mail, last_log) VALUES ('$nick_c', NOW(), '$mail_c', NOW())";
 							$vys = mysql_query($sql);
@@ -156,7 +159,7 @@ $('dd').hide();
 							$sql = $vys = "";
 							$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ('$id_u', '$idecko', '$comment', NOW(), '$ip')";
 							$vys = mysql_query($sql);
-						//	header("Location:send.php");
+						//	header("Location:send.php"); */
 							
 					}
 					else if( ($poc_n>0) && ($poc_m>0) ) { 
@@ -169,7 +172,7 @@ $('dd').hide();
 								$sql = $vys="";
 								$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ('$id_u', '$idecko', '$comment', NOW(), '$ip')";
 								$vys = mysql_query($sql) or print("Došlo k chybě v dotazu: ".$sql."<br>".mysql_error());
-;
+
 							
 					} 
 					

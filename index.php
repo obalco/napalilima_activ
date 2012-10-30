@@ -293,7 +293,7 @@ $('dd').hide();
 								$sql = $vys="";
 								$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ('$id_u', '$idecko', '$comment', NOW(), '$ip')";
 								$vys = mysql_query($sql) or print("Došlo k chybě v dotazu: ".$sql."<br>".mysql_error());
-;
+
 							
 					} 
 					
