@@ -176,9 +176,9 @@ function index (){
 function send_mail($mail,$token){
 			$to=$mail;
 			$re='WWW.NAPALILIMA.SK';
-			$head="Content-Type: text/html; charset=utf-8\n";
-			$head.="Od:admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
-			$head.="Reply-To: admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
+	    #$head="Content-Type: text/html;";
+			#$head.="Od:admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
+			#$head.="Reply-To: admin@".substr($_SERVER["SERVER_NAME"],4)."\n";
 			$mess='Pr·ve ste pridali svoju prv˙ sùaûnosù/koment·r na str·nka <a href="http://www.napalilima.sk>www.napalilima.sk</a>".
 				 Pre zobrazenie vaöej sùaûnosti/koment·ru je potrebnÈ aby ste klikli na tento odkaz. ';
 			$mess.=$token;

@@ -17,7 +17,7 @@
 
 <title>Napalilima.sk!</title>
 
-<meta http-equiv="Content-Type" content="text/html; cp1250_bin" />
+<meta http-equiv="Content-Type" content="text/html" charset="windows-1250" />
 
 </head>
 
@@ -142,10 +142,10 @@ $('dd').hide();
 				 include_once ('db.php');
 
 				
-                 $who   = mysql_real_escape_string(trim($_POST['who']));
-                 $claim = mysql_real_escape_string(trim($_POST['claim']));
+         $who   = mysql_real_escape_string(trim($_POST['who']));
+         $claim = mysql_real_escape_string(trim($_POST['claim']));
 				 $nick  = mysql_real_escape_string(trim($_POST['nick']));
-                 $datum = mysql_real_escape_string(trim($_POST['datum']));
+         $datum = mysql_real_escape_string(trim($_POST['datum']));
 				 $mail  = mysql_real_escape_string(trim($_POST['mail']));
 				 $ip    = getIpAddress();
 				
@@ -192,9 +192,9 @@ $('dd').hide();
 						
 						
 						send_mail($mail, $token); 
-						$message.="Bol vam odoslany mail na vami zadanú adresu";
-					      echo '<a href ="'.$link.'">'.$link.'</a>';
-					//	header("Location:send.php");
+						$message.="Bol vam odoslany mail na vami zadanú adresu $mail";
+					 //     echo '<a href ="'.$link.'">'.$link.'</a>';
+						header("Location:send.php");
 						
 					}
 					else if( ($poc_n>0) && ($poc_m>0) ) { 
@@ -211,7 +211,7 @@ $('dd').hide();
 						
 						} 
 						else{
-							// alebo nejake dva if ked chceme specifikovat blizsie co by mal zmenit
+							$message.= $error[7];
 							 
 						}
 							
@@ -243,7 +243,7 @@ $('dd').hide();
 					
 				$idecko=(isset($_POST['hid'])) ? $_POST['hid'] : "";			
 			
-                 $comment = mysql_real_escape_string(trim($_POST['comment']));
+         $comment = mysql_real_escape_string(trim($_POST['comment']));
 				 $nick_c  = mysql_real_escape_string(trim($_POST['nick_c']));
 				 $mail_c  = mysql_real_escape_string(trim($_POST['mail_c']));
 				 $ip      = getIpAddress();
@@ -349,45 +349,28 @@ $('dd').hide();
 					$s = "SELECT * FROM comments WHERE id_c='$id' ";
 					$v = mysql_query($s);
 				  $pocet_commentov = mysql_num_rows($v);
-				  if($pocet_commentov==1) 
-            {
-              echo "<p id=\"popis\">Komentare</p>";
-              echo "<div>K stažnosti je $pocet_commentov komentár</div>";
-            }
-            elseif($pocet_commentov>1 && $pocet_commentov<5) 
-            {
-              echo "<p id=\"popis\">Komentare</p>";
-              echo "<div>K stažnosti sú $pocet_commentov komentáre</div>";
-            }
-            elseif($pocet_commentov>4) 
-            {
-              echo "<p id=\"popis\">Komentare</p>";
-              echo "<div>K stažnosti je $pocet_commentov komentárov</div>";
-            }
-            
-           echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj komentár</a></dt>";
-				
+				 
+          echo "<div id=\"popis\">Komentare ($pocet_commentov)</div>";
+          echo "<br />";  
+          echo"<dt id='odkaz''><a href='".$zaznam['id']."'>Pridaj komentár</a></dt>";
   				echo'<dd id="text_odkazu">';
-				echo '<br />';
-				
-				echo'<form method="post" >';
-					
-				
-				echo '<br />';
-				echo'Komentár:'; 
-				echo '<br />';
-					echo'<textarea name="comment" rows="5" cols="87" ></textarea>';
+			  	echo'<form method="post" >';
+			  	echo '<br />';
+			  	echo'Komentár:'; 
+			  	echo '<br />';
+					echo'<textarea name="comment" rows="2" cols="87" ></textarea>';
 					echo '<br />';
 					echo '<br />';
 
 					echo' Nick: <input name="nick_c" type="text" />';
 					echo' E-mail: <input name="mail_c" type="text" /> ';
-				echo'<input name="send_comment" type="submit" value="Pridať komentár" />';
-					
+			  	echo'<input name="send_comment" type="submit" value="Pridať komentár" />';
+					echo '<br />';
 					echo'<input name="hid" type="hidden" value="'.$id.'" />';
-				echo"</form>";
+			  	echo"</form>";
+			  	echo '<br />';
 				
-				echo"</dd>";
+			  	echo"</dd>";
           
 				  while($z=mysql_fetch_assoc($v)){
 				  $sys_date = date("d.m.Y \o H:i",strtotime($z['sys_date']));
@@ -397,7 +380,7 @@ $('dd').hide();
 				  $u = mysql_fetch_assoc($vys5);
 	
 					echo'<div id="comment_box">';
-					echo "Pridal <strong>",$u['nick'],"</strong>&nbsp;",$sys_date,"&nbsp;<br />",$z['comment'];
+					echo "Pridal <strong>",$u['nick'],"</strong>&nbsp;",$sys_date,"&nbsp;<br /><br />",$z['comment'];
 					echo"</div><br />";
 				  }
 				
