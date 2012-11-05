@@ -274,14 +274,7 @@ $('dd').hide();
 		echo"</dl>";
 		   
          echo'</div>';
-         $sql="SELECT * FROM claims where `show`=1";
-         $res=mysql_query($sql);
-		 $pocet=mysql_num_rows($res);
-		 
-         if($pocet>10) 
-            {
-             echo '<p><a href="vypis.php">Ďalej</a></p>';
-            }
+         
 			
 				break;
 				

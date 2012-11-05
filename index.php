@@ -1,4 +1,4 @@
-d<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 
@@ -64,11 +64,11 @@ $('dd').hide();
 		 <div id="header">
 
 			<a href="index.php"><img class="logo" src="images/napalilima_logo3.png" alt="Napalili ma Logo" height="70" /></a>
-			<form action="hladat.php" method="post">
+	<!--		<form action="hladat.php" method="post">
 				<div class="search">
 					<input name="hladat" type="text" id="hladat"   />&nbsp;<input class="src" name="search" type="submit" value="Hladať" />
 				</div>
-			</form>
+			</form> -->
 		 </div>
      
         <p id="popis">Využite možnosť ventilovať svoj hnev a pomôžte iným vyhnúť sa problémom</p>
@@ -125,13 +125,13 @@ $('dd').hide();
 				//	FORMULAR PRE NOVU STAZNOST.
 				echo'<div id="nova_staznost">';
 					echo '<form  method="post">
-							Co/Kto:<br /><input type="text" name="who" /><br/>
-							Ako/Cim:<br /><textarea name="claim" rows="5" cols="95"></textarea><br/><br/>
-							Nick: <input type="text" name="nick" /> 
-							Kedy: <input type="text" name="datum" />
-							E-mail: <input type="text" name="mail" />
+							Kto alebo čo ťa napálilio<br /><input type="text" name="who" /><br/>
+							čím ťa napálili<br /><textarea name="claim" rows="5" cols="80" width="80"></textarea><br/><br/>
+							Tvoj nick: <input type="text" name="nick" /> 
+							Kedy sa to stalo: <input type="text" name="datum" />
+							Tvoj mail: <input type="text" name="mail" />
 							<br />
-							<p align="center"><input type="submit" id="button" value="Odoslať sťažnosť" name="send" /></p>
+							<p align="center"><input type="submit" id="button" value="Vypusti to von" name="send" /></p>
 						</form>';
 				echo'</div>';
 			
@@ -192,7 +192,7 @@ $('dd').hide();
 						
 						
 						send_mail($mail, $token); 
-						$message.="Bol vam odoslany mail na vami zadanú adresu $mail";
+						$message.="Bol ti odoslany potvrdzovací mail na adresu $mail";
 					 //     echo '<a href ="'.$link.'">'.$link.'</a>';
 						// header("Location:send.php");
 						
@@ -293,7 +293,7 @@ $('dd').hide();
 								$sql = $vys="";
 								$sql = "INSERT INTO comments (id_u, id_c, comment, sys_date, ip) VALUES ('$id_u', '$idecko', '$comment', NOW(), '$ip')";
 								$vys = mysql_query($sql) or print("Došlo k chybě v dotazu: ".$sql."<br>".mysql_error());
-
+;
 							
 					} 
 					
@@ -346,7 +346,8 @@ $('dd').hide();
 
 				echo '<div id="hlavicka_staznosti">'; 
 			
-				echo '<b>Nick: </b>'.$nick.' | <b>Sťažnosť na: </b>'.$who.' | <b>Sťažnosť kedy: </b>'.$date.' | <b>Dátum odoslania: </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> ".$like." | <a href='?req=dislike&id=".$id."'> DISLIKE </a>".$dis;
+				echo '<b>Napálený: </b>'.$nick.' | <b>Napálili ma </b>'.$date.' | <b>Pridané </b>'.$sys_date;  echo" <a href='?req=like&id=".$id."'> LIKE </a> ".$like." | <a href='?req=dislike&id=".$id."'> DISLIKE </a>".$dis;
+				echo '<p><b>Napálil/li/la ma </b>'.$who.'</p>';
 				echo '<p id="staznost_a">'.$claim.'</p>';
        
 					$s = "SELECT * FROM comments WHERE id_c='$id' ";
@@ -401,7 +402,7 @@ $('dd').hide();
 		 
          if($pocet>10) 
             {
-             echo '<p><a href="vypis.php">Ďalej</a></p>';
+        //     echo '<p><a href="vypis.php">Ďalej</a></p>';
             }
 			
 				break;
